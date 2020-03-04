@@ -4,10 +4,7 @@ import com.jpabook.ch11.demo.service.member.MemberService;
 import com.jpabook.ch11.demo.service.member.dto.MemberCreateRequest;
 import com.jpabook.ch11.demo.service.member.dto.MemberFindResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -27,6 +24,11 @@ public class MemberController {
 	@GetMapping("/api/v1/members")
 	public List<MemberFindResponse> findMembers() {
 		return memberService.findMembers();
+	}
+
+	@GetMapping("/api/v1/member/{id}")
+	public MemberFindResponse findMember(@Valid @PathVariable("id") Long memberId) {
+		return memberService.findMember(memberId);
 	}
 
 }

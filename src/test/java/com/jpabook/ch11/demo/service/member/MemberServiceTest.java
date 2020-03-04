@@ -1,4 +1,4 @@
-package com.jpabook.ch11.demo.service;
+package com.jpabook.ch11.demo.service.member;
 
 import com.jpabook.ch11.demo.domain.member.Member;
 import com.jpabook.ch11.demo.domain.member.MemberRepository;
@@ -70,6 +70,21 @@ public class MemberServiceTest {
 		assertThat(memberFindResponseList.size()).isEqualTo(2);
 		Member member = memberRepository.findAll().get(0);
 		System.out.println(member.getCity());
+	}
+
+	@Test
+	void 특정_멤버의_정보를_불러온다() {
+		// given
+		String name = "kang";
+		Member member1 = Member.testInstance("kim");
+		Member member2 = Member.testInstance(name);
+		memberRepository.saveAll(Arrays.asList(member1, member2));
+
+		// when
+		MemberFindResponse memberFindResponse = memberService.findMember(member2.getId());
+
+		// then
+		assertThat(memberFindResponse.getName()).isEqualTo(name);
 	}
 
 }
